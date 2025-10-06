@@ -1,0 +1,139 @@
+/* ========== 基本排版 ========== */
+:root{
+  --blue-deep: #0056b3;
+  --blue-mid:  #007fbf;
+  --blue-top:  #8fd7fb; /* 淺 -> for subtle touch (not main bg) */
+  --light-blue-sample: #D1F6FD; /* 從圖片取樣的淡藍 (#D1F6FD) */
+}
+
+* { box-sizing: border-box; }
+body {
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #333;
+  background-color: #1e88c7;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.03) 10px, rgba(255,255,255,.03) 20px),
+                repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255,255,255,.03) 10px, rgba(255,255,255,.03) 20px);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ===== Header (title 靠左) ===== */
+.site-header {
+  color: #fff;
+}
+.site-title { font-size: 1.6rem; margin: 0; font-weight: 700; text-align: left; }
+.site-slogan { margin: 0.15rem 0 0 0.05rem; opacity: 0.95; font-style: italic; }
+
+/* ===== Hero 圖片 ===== */
+.hero img { display:block; width:100%; height:auto; border-bottom: 4px solid #007fbf; }
+
+/* ===== Navbar: 上淺下深的漸層 ===== */
+.site-nav {
+  background: linear-gradient(180deg, #8fd7fb 0%, #007fbf 45%, #0056b3 100%);
+  border: none;
+  padding: 0.35rem 0;
+}
+.site-nav .nav-link { color: rgba(255,255,255,0.95); font-weight:600; text-transform:uppercase; letter-spacing:0.4px; }
+.site-nav .nav-link:hover { color: #ffffff; text-decoration: none; }
+
+/* ===== Top info 三欄 (如圖) ===== */
+.top-info { background: transparent; padding-top: 2rem; padding-bottom: 2rem; }
+.info-title { color: var(--blue-mid); font-weight: 700; margin-top: 0.35rem; margin-bottom: 0.35rem; }
+.info-line { color: #444; margin:0; }
+
+/* ===== 區段標題共用樣式 (左側有小圓點) ===== */
+.section-heading {
+  font-size: 1.05rem;
+  color: var(--blue-mid);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  position: relative;
+  padding-left: 1.1rem;
+}
+
+/* ===== Etiam (淡藍背景，含四格方塊) ===== */
+.etiam-section {
+  background: var(--light-blue-sample);
+  border: 1px solid #c7eaf3;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0; /* margin handled by parent */
+  min-height: 220px; /* ensure some height baseline */
+}
+
+/* 四格方塊：每格為「圖片(左) + 文字(右)」，且呈方形(長寬接近) */
+.square-card {
+  
+  border: 1px solid #d5ecf6;
+  border-radius: 6px;
+  height: 100%;
+  padding: 0.6rem;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-start;
+  /* ensure near-square by using padding and setting media width to control aspect visually */
+}
+
+/* 卡片內部：media 左 40% / body 60% */
+.square-card .card-media { flex: 0 0 40%; display:flex; align-items:center; justify-content:center; }
+.square-card .card-media img { width: 100%; height: auto; border-radius:4px; display:block; }
+.square-card .card-body { flex: 1 1 60%; text-align: left; padding-left: 0.5rem; }
+
+/* card 標題與文字 */
+.card-title { font-size: 0.92rem; color: var(--blue-mid); font-weight:700; margin:0 0 0.3rem 0; text-transform: none; }
+.card-text { margin:0; color:#444; }
+
+/* ===== Duis: 淡藍背景，並與 Etiam 等高 ===== */
+.duis-section {
+  background: var(--light-blue-sample);
+  border: 1px solid #c7eaf3;
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 100%;
+  /* We'll set its min-height via JS-less CSS by letting left column determine row height on large screens.
+     To ensure closer match, we use display:flex in parent columns; handled via bootstrap grid. */
+}
+
+/* READ MORE 樣式 */
+.read-more { color: var(--blue-mid); text-decoration: none; font-weight:700; }
+
+/* ===== Nullam 與 In semper (no frame) ===== */
+.nullam-section, .insemper-section {
+  background: transparent;
+  padding: 0.4rem 0;
+  margin-top: 1rem;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  background: linear-gradient(180deg, var(--blue-mid), var(--blue-deep));
+  margin-top: 1.5rem;
+}
+
+/* ===== 清單項目樣式 ===== */
+.list-unstyled li { margin-bottom: 0.45rem; color: #333; }
+
+/* ===== 響應式處理 ===== */
+@media (min-width: 992px) {
+  /* Make sure left and right block align in height:
+     Use equal row alignment — bootstrap's .row flexbox will align items by default.
+     To ensure the right column's Duis min-height matches left Etiam visually, we give .etiam-section a fixed min-height
+     and let .duis-section inherit via 100% height of its column.
+  */
+  .etiam-section { min-height: 320px; }
+  .duis-section { min-height: 320px; }
+}
+
+/* On smaller screens, remove enforced square aspect and stack gracefully */
+@media (max-width: 767.98px) {
+  .square-card { flex-direction: row; }
+  .square-card .card-media { flex-basis: 40%; }
+  .etiam-section, .duis-section { min-height: auto; }
+}
+
+.mainContent{
+    max-width: 1200px;
+    justify-self: center;
+    background-color: white;
+    border: #8fd7fb solid 10px;
+}
